@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="g4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#faf5ff" />
+      <stop offset="100%" stop-color="#f3e8ff" />
+    </linearGradient>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#g4)" rx="24"/>
+  <circle cx="300" cy="300" r="120" fill="#a855f7" opacity="0.1" />
+  <!-- Moon and Hearts -->
+  <g transform="translate(300, 300)">
+    <!-- Moon -->
+    <path d="M 40,-60 A 70,70 0 1,0 40,60 A 55,55 0 1,1 40,-60 Z" fill="#a855f7" />
+    <!-- Heart -->
+    <path d="M -40,-20 C -50,-35 -65,-30 -65,-20 C -65,-10 -40,10 -40,20 C -40,10 -15,-10 -15,-20 C -15,-30 -30,-35 -40,-20 Z" fill="#ec4899" />
+  </g>
+</svg>

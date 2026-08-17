@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="g6" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff5f5" />
+      <stop offset="100%" stop-color="#fed7d7" />
+    </linearGradient>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#g6)" rx="24"/>
+  <circle cx="300" cy="300" r="120" fill="#e53e3e" opacity="0.1" />
+  <!-- Sealed Love Letter Envelope -->
+  <g transform="translate(300, 310)">
+    <!-- Envelope Base -->
+    <path d="M -100,-60 L 100,-60 L 100,50 C 100,60 90,70 80,70 L -80,70 C -90,70 -100,60 -100,50 Z" fill="#e53e3e" />
+    <!-- Flap Open Background -->
+    <path d="M -100,-60 L 0,10 L 100,-60 Z" fill="#c53030" />
+    <!-- Heart Seal -->
+    <path d="M 0,-5 C -8,-15 -18,-10 -18,-2 C -18,5 0,18 0,24 C 0,18 18,5 18,-2 C 18,-10 8,-15 0,-5 Z" fill="#fff" />
+  </g>
+</svg>

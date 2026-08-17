@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff1f2" />
+      <stop offset="100%" stop-color="#ffe4e6" />
+    </linearGradient>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#g1)" rx="24"/>
+  <circle cx="300" cy="300" r="120" fill="#f43f5e" opacity="0.1" />
+  <!-- Heart -->
+  <path d="M 300,240 C 280,180 200,180 200,250 C 200,320 300,390 300,430 C 300,390 400,320 400,250 C 400,180 320,180 300,240 Z" fill="#f43f5e" />
+  <circle cx="270" cy="230" r="10" fill="#fff" opacity="0.3" />
+</svg>

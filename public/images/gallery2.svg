@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fdf4ff" />
+      <stop offset="100%" stop-color="#fae8ff" />
+    </linearGradient>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#g2)" rx="24"/>
+  <circle cx="300" cy="300" r="120" fill="#d946ef" opacity="0.1" />
+  <!-- Sparkly Stars -->
+  <g transform="translate(300, 300)">
+    <path d="M 0,-80 L 15,-15 L 80,0 L 15,15 L 0,80 L -15,15 L -80,0 L -15,-15 Z" fill="#d946ef" />
+    <path d="M -80,-80 L -70,-50 L -40,-40 L -70,-30 L -80,0 L -90,-30 L -120,-40 L -90,-50 Z" fill="#e879f9" opacity="0.8" />
+  </g>
+</svg>

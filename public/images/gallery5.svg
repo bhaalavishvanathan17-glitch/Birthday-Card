@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="g5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ecfdf5" />
+      <stop offset="100%" stop-color="#d1fae5" />
+    </linearGradient>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#g5)" rx="24"/>
+  <circle cx="300" cy="300" r="120" fill="#10b981" opacity="0.1" />
+  <!-- Camera with Heart Lens -->
+  <g transform="translate(300, 310)">
+    <!-- Body -->
+    <rect x="-90" y="-50" width="180" height="110" rx="16" fill="#10b981" />
+    <!-- Flash -->
+    <circle cx="60" cy="-30" r="10" fill="#fff" opacity="0.8" />
+    <!-- Lens outer -->
+    <circle cx="0" cy="5" r="40" fill="#047857" />
+    <!-- Heart inside Lens -->
+    <path d="M 0,-15 C -8,-25 -18,-20 -18,-12 C -18,-5 0,8 0,14 C 0,8 18,-5 18,-12 C 18,-20 8,-25 0,-15 Z" fill="#fff" />
+  </g>
+</svg>
