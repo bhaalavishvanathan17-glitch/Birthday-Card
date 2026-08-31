@@ -8,23 +8,23 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState("home");
 
   const navItems = [
-    { name: "Home", href: "#home" },
+    { name: "Surprise", href: "#home" },
     { name: "Our Story", href: "#our-story" },
-    { name: "Memories", href: "#memories" },
-    { name: "Reasons", href: "#reasons" },
-    { name: "Letter", href: "#letter" },
-    { name: "Surprise", href: "#surprise" },
+    { name: "Birth Time", href: "#birth-time" },
+    { name: "Why You", href: "#reasons" },
+    { name: "Let's Play", href: "#birthday-quiz" },
+    { name: "From Me", href: "#letter" },
+    { name: "Our Future", href: "#bucket-list" },
+    { name: "Final Surprise", href: "#final-question" },
   ];
 
   useEffect(() => {
     const handleScroll = () => {
-      // Calculate scroll progress percentage
       const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
       if (totalScroll > 0) {
         setScrollProgress((window.scrollY / totalScroll) * 100);
       }
 
-      // Check which section is in view
       const scrollPosition = window.scrollY + 200;
       for (const item of navItems) {
         const el = document.querySelector(item.href);
@@ -52,31 +52,32 @@ export default function Navbar() {
 
   return (
     <>
-      {/* Floating Navbar Container */}
       <motion.nav
         initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.5, duration: 0.6 }}
-        className="fixed top-4 left-1/2 -translate-x-1/2 z-30 w-[90%] max-w-4xl"
+        transition={{ delay: 0.2, duration: 0.5 }}
+        className="fixed top-3 left-1/2 -translate-x-1/2 z-40 w-[94%] max-w-5xl"
       >
-        <div className="glass px-4 py-3 rounded-full flex items-center justify-between shadow-md relative overflow-hidden">
-          {/* Scroll progress line inside navbar border */}
+        <div className="bg-burgundy-dark/85 backdrop-blur-xl border border-white/20 px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full flex items-center justify-between shadow-2xl relative overflow-hidden">
+          {/* Scroll progress bar */}
           <div 
-            className="absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-rose-400 to-pink-600 transition-all duration-75"
+            className="absolute bottom-0 left-0 h-[2.5px] bg-gradient-to-r from-rose-500 via-pink-400 to-amber-300 transition-all duration-75"
             style={{ width: `${scrollProgress}%` }}
           />
 
           {/* Logo / Heart */}
           <button 
             onClick={() => scrollToSection("#home")}
-            className="flex items-center gap-2 cursor-pointer font-playfair font-bold text-rose-700 hover:text-rose-800 transition focus:outline-none"
+            className="flex items-center space-x-2 cursor-pointer text-pink-100 hover:text-white transition focus:outline-none touch-target"
           >
-            <Heart className="w-5 h-5 fill-rose-600 text-rose-600 animate-pulse" />
-            <span className="text-sm tracking-widest uppercase">My Love</span>
+            <Heart className="w-4 sm:w-5 h-4 sm:h-5 fill-rose-500 text-rose-500 animate-pulse" />
+            <span className="font-serif font-bold text-[11px] sm:text-xs md:text-sm tracking-wider uppercase text-pink-200 truncate max-w-[170px] sm:max-w-none">
+              Happy Birthday ❤️
+            </span>
           </button>
 
           {/* Desktop Nav Items */}
-          <div className="hidden md:flex items-center gap-1">
+          <div className="hidden lg:flex items-center space-x-1">
             {navItems.map((item) => {
               const sectionId = item.href.replace("#", "");
               const isActive = activeSection === sectionId;
@@ -84,10 +85,10 @@ export default function Navbar() {
                 <button
                   key={item.name}
                   onClick={() => scrollToSection(item.href)}
-                  className={`px-4 py-1.5 rounded-full text-xs font-poppins font-medium tracking-wide transition-all cursor-pointer focus:outline-none ${
+                  className={`px-3 py-1.5 rounded-full text-xs font-sans font-medium transition-all cursor-pointer focus:outline-none ${
                     isActive
-                      ? "bg-rose-500 text-white shadow-sm"
-                      : "text-rose-950 hover:bg-rose-100/50 hover:text-rose-700"
+                      ? "bg-rose-500 text-white shadow-md shadow-rose-900/40 font-semibold"
+                      : "text-pink-200/80 hover:bg-white/10 hover:text-white"
                   }`}
                 >
                   {item.name}
@@ -96,11 +97,11 @@ export default function Navbar() {
             })}
           </div>
 
-          {/* Mobile Hamburguer Toggle */}
+          {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle Navigation Menu"
-            className="md:hidden p-1.5 text-rose-800 hover:text-rose-900 rounded-full hover:bg-rose-100/50 cursor-pointer focus:outline-none"
+            className="lg:hidden p-2 text-pink-200 hover:text-white rounded-full hover:bg-white/10 cursor-pointer focus:outline-none touch-target"
           >
             {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -114,7 +115,7 @@ export default function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-[#fff5f5]/90 backdrop-blur-md z-29 flex flex-col items-center justify-center gap-6"
+            className="fixed inset-0 bg-burgundy-dark/95 backdrop-blur-2xl z-30 flex flex-col items-center justify-center space-y-4 p-6"
           >
             {navItems.map((item, index) => {
               const sectionId = item.href.replace("#", "");
@@ -125,10 +126,10 @@ export default function Navbar() {
                   initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 15 }}
-                  transition={{ delay: index * 0.08 }}
+                  transition={{ delay: index * 0.04 }}
                   onClick={() => scrollToSection(item.href)}
-                  className={`text-2xl font-playfair font-semibold transition-all cursor-pointer focus:outline-none ${
-                    isActive ? "text-rose-600 scale-105" : "text-rose-900 hover:text-rose-600"
+                  className={`text-lg sm:text-xl font-serif font-medium transition-all cursor-pointer focus:outline-none py-2 px-6 rounded-full touch-target ${
+                    isActive ? "text-rose-400 scale-105 font-bold bg-white/5 border border-rose-500/20" : "text-pink-100 hover:text-rose-300"
                   }`}
                 >
                   {item.name}

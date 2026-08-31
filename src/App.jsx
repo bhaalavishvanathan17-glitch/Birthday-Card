@@ -2,133 +2,208 @@ import React, { useState, useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { birthdayConfig } from "./config/birthdayConfig";
 
-// Components
+// Atmospheric Effects & Overlays
+import FilmGrain from "./components/effects/FilmGrain";
+import Vignette from "./components/effects/Vignette";
+import AuroraBackground from "./components/effects/AuroraBackground";
+import StarField from "./components/effects/StarField";
+import SoundToggle from "./components/SoundToggle";
+import AchievementSystem from "./components/AchievementSystem";
+import CursorSecret from "./components/CursorSecret";
+
+// Components & Navigation
 import LoadingScreen from "./components/LoadingScreen";
-import LandingScreen from "./components/LandingScreen";
+import ChatOpening from "./components/ChatOpening";
+import SurpriseOpener from "./components/SurpriseOpener";
 import Navbar from "./components/Navbar";
 import CursorEffects from "./components/CursorEffects";
 import MusicPlayer from "./components/MusicPlayer";
 import BirthdayHero from "./components/BirthdayHero";
-import Countdown from "./components/Countdown";
+import BirthdayCake from "./components/BirthdayCake";
+
+// Chapter 1 Features
+import LoveMeter from "./components/LoveMeter";
+import VirtualHug from "./components/VirtualHug";
+import FakePhoneCall from "./components/FakePhoneCall";
+
+// Chapter 2 Components & Memory Features
 import OurStory from "./components/OurStory";
+import BirthTime from "./components/BirthTime";
+import MemoryConstellation from "./components/MemoryConstellation";
 import MemoryGallery from "./components/MemoryGallery";
+import ThenNowSlider from "./components/ThenNowSlider";
+import PlacesVisited from "./components/PlacesVisited";
+import GuessMemory from "./components/GuessMemory";
+import LivingPhoto from "./components/LivingPhoto";
+
+// Chapter 3 Components & Emotional Features
 import LoveReasons from "./components/LoveReasons";
-import OurSong from "./components/OurSong";
-import BucketList from "./components/BucketList";
-import LoveLetter from "./components/LoveLetter";
+import HundredThings from "./components/HundredThings";
+import MoodMessages from "./components/MoodMessages";
+import OpenWhen from "./components/OpenWhen";
+import ThingsNeverSaid from "./components/ThingsNeverSaid";
+import OneThing from "./components/OneThing";
+import LittleThings from "./components/LittleThings";
+
+// Chapter 4 Components & Game Features
 import BirthdayQuiz from "./components/BirthdayQuiz";
-import SpecialReasons from "./components/SpecialReasons";
+import DontBreakMyHeart from "./components/DontBreakMyHeart";
+
+// Chapter 5 Components & Secret Features
+import OurSong from "./components/OurSong";
+import VoiceMessage from "./components/VoiceMessage";
+import VideoMessage from "./components/VideoMessage";
+import LoveLetter from "./components/LoveLetter";
+import SecretPassword from "./components/SecretPassword";
+import EasterEggs from "./components/EasterEggs";
+import SecretNumber from "./components/SecretNumber";
+import FewSecondsWithYou from "./components/FewSecondsWithYou";
+import OurMovie from "./components/OurMovie";
+
+import BucketList from "./components/BucketList";
+
+// Chapter 7 Components
 import GiftBox from "./components/GiftBox";
+import FinalQuestion from "./components/FinalQuestion";
 import FinalMessage from "./components/FinalMessage";
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
+  const [chatCompleted, setChatCompleted] = useState(false);
   const [surpriseOpened, setSurpriseOpened] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [hasMusic, setHasMusic] = useState(true);
-  
+
   const audioRef = useRef(null);
 
   useEffect(() => {
-    // Show loading screen for 2.2 seconds for dramatic effect
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 2200);
+    }, 2000);
     return () => clearTimeout(timer);
   }, []);
 
   const handleOpenSurprise = () => {
     setSurpriseOpened(true);
-    // Trigger music play on user interaction
     if (audioRef.current && hasMusic) {
       audioRef.current.play()
         .then(() => setIsPlaying(true))
-        .catch((err) => {
-          console.log("Audio play blocked by browser. User needs to tap play.", err);
+        .catch(() => {
+          console.log("Audio play blocked by browser. User can tap play on music control.");
         });
     }
   };
 
+  const handleReplay = () => {
+    setChatCompleted(false);
+    setSurpriseOpened(false);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <>
-      {/* Hidden audio element */}
+      <FilmGrain />
+      <Vignette />
+      <SoundToggle />
+      <AchievementSystem />
+      <CursorSecret />
+
       <audio
         ref={audioRef}
         src={birthdayConfig.music.file}
         preload="auto"
         loop
-        onError={() => {
-          console.log("Optional music file not found/loaded at public/music/our-song.mp3. Silent mode activated.");
-          setHasMusic(false);
-        }}
+        onError={() => setHasMusic(false)}
       />
+
+      <EasterEggs />
 
       <AnimatePresence>
         {isLoading && <LoadingScreen key="loading" />}
       </AnimatePresence>
 
       <AnimatePresence>
-        {!isLoading && !surpriseOpened && (
-          <LandingScreen key="landing" onOpen={handleOpenSurprise} />
+        {!isLoading && !chatCompleted && (
+          <ChatOpening
+            key="chat"
+            onComplete={() => setChatCompleted(true)}
+          />
         )}
       </AnimatePresence>
 
-      {/* Main website content after surprise is opened */}
+      <AnimatePresence>
+        {!isLoading && chatCompleted && !surpriseOpened && (
+          <SurpriseOpener
+            key="surprise"
+            onOpen={handleOpenSurprise}
+          />
+        )}
+      </AnimatePresence>
+
       {surpriseOpened && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.2, ease: "easeOut" }}
-          className="relative w-full overflow-x-hidden min-h-screen bg-cream flex flex-col"
+          className="relative w-full overflow-x-hidden min-h-screen bg-burgundy-dark flex flex-col text-cream select-none"
         >
-          {/* Floating Navigation Menu */}
+          <AuroraBackground />
           <Navbar />
-
-          {/* Desktop Custom Glowing Cursor */}
           <CursorEffects />
 
-          {/* 1. Hero Section + Cake */}
+          {/* CHAPTER 1 */}
           <BirthdayHero />
+          <BirthdayCake />
+          <LoveMeter />
+          <VirtualHug />
+          <FakePhoneCall />
 
-          {/* 2. Countdown Section */}
-          <Countdown />
-
-          {/* 3. Our Story Section */}
+          {/* CHAPTER 2 */}
           <OurStory />
-
-          {/* 4. Memory Gallery Section */}
+          <BirthTime />
+          <MemoryConstellation />
           <MemoryGallery />
+          <GuessMemory />
+          <LivingPhoto />
+          <ThenNowSlider />
+          <PlacesVisited />
 
-          {/* 5. Reasons Section */}
+          {/* CHAPTER 3 */}
           <LoveReasons />
+          <HundredThings />
+          <ThingsNeverSaid />
+          <OneThing />
+          <LittleThings />
+          <MoodMessages />
+          <OpenWhen />
 
-          {/* 6. Dedicated Our Song Section */}
-          <OurSong 
-            isPlaying={isPlaying} 
-            setIsPlaying={setIsPlaying} 
-            hasMusic={hasMusic} 
-            audioRef={audioRef} 
+          {/* CHAPTER 4 */}
+          <BirthdayQuiz />
+          <DontBreakMyHeart />
+
+          {/* CHAPTER 5 */}
+          <OurSong
+            isPlaying={isPlaying}
+            setIsPlaying={setIsPlaying}
+            hasMusic={hasMusic}
+            audioRef={audioRef}
           />
+          <VoiceMessage />
+          <VideoMessage />
+          <LoveLetter />
+          <SecretPassword />
+          <SecretNumber />
+          <FewSecondsWithYou />
+          <OurMovie />
 
-          {/* 7. Bucket List Section */}
+          <StarField />
           <BucketList />
 
-          {/* 8. Letter Section */}
-          <LoveLetter />
-
-          {/* 9. Quiz Section */}
-          <BirthdayQuiz />
-
-          {/* 10. Special Qualities Section */}
-          <SpecialReasons />
-
-          {/* 11. Gift Surprise Section */}
+          {/* CHAPTER 7 */}
           <GiftBox />
+          <FinalQuestion />
+          <FinalMessage onReplay={handleReplay} />
 
-          {/* 12. Final Message Section */}
-          <FinalMessage />
-
-          {/* Music player controls overlays */}
           <MusicPlayer
             audioRef={audioRef}
             isPlaying={isPlaying}

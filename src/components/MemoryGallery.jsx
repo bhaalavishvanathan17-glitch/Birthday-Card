@@ -1,79 +1,95 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Heart, X, Sparkles } from "lucide-react";
+import { Heart, X, Sparkles, ChevronLeft, ChevronRight } from "lucide-react";
 import { birthdayConfig } from "../config/birthdayConfig";
 
 export default function MemoryGallery() {
-  const [selectedPhoto, setSelectedPhoto] = useState(null);
+  const [selectedIndex, setSelectedIndex] = useState(null);
+  const photos = birthdayConfig.gallery || [];
+
+  const handlePrev = (e) => {
+    e.stopPropagation();
+    setSelectedIndex((prev) => (prev === 0 ? photos.length - 1 : prev - 1));
+  };
+
+  const handleNext = (e) => {
+    e.stopPropagation();
+    setSelectedIndex((prev) => (prev === photos.length - 1 ? 0 : prev + 1));
+  };
+
+  const selectedPhoto = selectedIndex !== null ? photos[selectedIndex] : null;
 
   return (
-    <section 
-      id="memories" 
-      className="py-24 bg-gradient-to-b from-cream to-[#fff5f5] relative overflow-hidden select-none px-6"
-    >
-      {/* Decorative stars */}
-      <div className="absolute top-1/4 right-1/4 w-32 h-32 bg-pink-200/10 rounded-full blur-2xl pointer-events-none" />
-      <div className="absolute bottom-10 left-10 text-rose-300 text-2xl animate-pulse">✨</div>
+    <section id="memories" className="py-16 sm:py-24 bg-burgundy-dark text-cream relative overflow-hidden select-none px-4 sm:px-6">
+      {/* Background glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-rose-500/8 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto relative">
-        {/* Title */}
-        <div className="text-center mb-16">
-          <motion.div 
+        {/* Header */}
+        <div className="text-center mb-12 sm:mb-16">
+          <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, margin: "-100px" }}
-            className="inline-flex items-center gap-2 text-rose-800 font-poppins text-xs font-semibold uppercase tracking-widest bg-rose-100 px-4 py-1.5 rounded-full mb-3"
+            viewport={{ once: true }}
+            className="inline-flex items-center space-x-2 text-rose-300 font-mono text-[11px] sm:text-xs uppercase tracking-widest bg-rose-500/20 border border-rose-400/30 px-4 py-1.5 rounded-full mb-3 shadow-md"
           >
-            Gallery
+            <Heart className="w-3 h-3 fill-rose-400 text-rose-400 animate-pulse" />
+            <span>Our Memories</span>
           </motion.div>
-          <motion.h2 
+
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            className="font-playfair text-3xl md:text-5xl font-bold text-rose-900"
+            viewport={{ once: true }}
+            className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-rose-200 via-pink-100 to-amber-200 bg-clip-text text-transparent"
           >
-            Little Moments, Big Memories 📸
+            OUR MEMORIES ❤️
           </motion.h2>
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="text-pink-200/70 text-xs sm:text-sm max-w-md mx-auto mt-2 font-serif italic"
+          >
+            "A beautiful chronological collection of our sweet moments together."
+          </motion.p>
         </div>
 
-        {/* Gallery Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {birthdayConfig.gallery.map((photo, index) => (
+        {/* Masonry Gallery — each photo shows at its NATURAL aspect ratio, never cropped */}
+        <div className="columns-1 sm:columns-2 lg:columns-3 gap-5">
+          {photos.map((photo, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ delay: index * 0.05 }}
-              onClick={() => setSelectedPhoto(photo)}
-              className="group cursor-pointer rounded-3xl overflow-hidden glass p-3 border border-rose-100/50 hover:border-rose-300 hover:shadow-md transition-all duration-300 relative"
+              viewport={{ once: true }}
+              transition={{ delay: Math.min(index * 0.035, 0.25) }}
+              onClick={() => setSelectedIndex(index)}
+              className="break-inside-avoid mb-5 group cursor-pointer rounded-2xl overflow-hidden bg-white/5 backdrop-blur-md border border-white/10 p-2.5 hover:border-rose-400/40 hover:shadow-[0_0_28px_rgba(244,63,94,0.12)] hover:bg-white/8 transition-all duration-300"
             >
-              {/* Photo Wrapper */}
-              <div className="w-full aspect-square rounded-2xl overflow-hidden relative">
-                <img 
-                  src={photo.url} 
+              {/* Image — width:100%, height:auto  → preserves every photo's natural ratio */}
+              <div className="relative rounded-xl overflow-hidden">
+                <img
+                  src={photo.url}
                   alt={photo.caption}
                   loading="lazy"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                  className="w-full h-auto block transition-transform duration-700 ease-out group-hover:scale-[1.02]"
                 />
-
-                {/* Hover Glass Overlay */}
-                <div className="absolute inset-0 bg-rose-950/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
-                  <motion.div
-                    whileHover={{ scale: 1.2 }}
-                    className="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center text-rose-600 shadow-md"
-                  >
-                    <Heart className="w-6 h-6 fill-rose-600 animate-pulse" />
-                  </motion.div>
+                {/* Hover overlay (full cover of the natural image area) */}
+                <div className="absolute inset-0 bg-rose-950/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-full bg-rose-500/90 flex items-center justify-center shadow-lg border border-white/20">
+                    <Heart className="w-4 h-4 fill-white text-white" />
+                  </div>
                 </div>
               </div>
 
-              {/* Caption Summary (Card bottom) */}
-              <div className="pt-3 px-1 flex justify-between items-center">
-                <span className="font-poppins text-xs font-semibold text-rose-950 truncate max-w-[70%]">
+              {/* Caption + date */}
+              <div className="pt-2.5 px-0.5 flex justify-between items-center gap-2">
+                <span className="font-serif text-xs sm:text-sm font-semibold text-pink-100 leading-tight flex-1 min-w-0 truncate">
                   {photo.caption}
                 </span>
-                <span className="font-inter text-[10px] text-rose-700/60 uppercase tracking-widest font-semibold">
+                <span className="font-mono text-[9px] text-pink-300 bg-rose-500/10 border border-rose-500/20 px-2 py-0.5 rounded-full uppercase tracking-wider shrink-0 whitespace-nowrap">
                   {photo.date}
                 </span>
               </div>
@@ -82,56 +98,75 @@ export default function MemoryGallery() {
         </div>
       </div>
 
-      {/* Lightbox Modal */}
+      {/* Lightbox — shows the COMPLETE photo with object-contain, no cropping */}
       <AnimatePresence>
         {selectedPhoto && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-[#0f0208]/90 backdrop-blur-md flex items-center justify-center px-4"
+            className="fixed inset-0 z-50 bg-black/95 backdrop-blur-md flex flex-col items-center justify-center p-4"
           >
-            {/* Close trigger clicking background */}
-            <div className="absolute inset-0" onClick={() => setSelectedPhoto(null)} />
+            {/* Backdrop to close */}
+            <div className="absolute inset-0" onClick={() => setSelectedIndex(null)} />
 
-            {/* Lightbox Card */}
-            <motion.div
-              initial={{ scale: 0.9, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.9, y: 20 }}
-              className="glass-dark max-w-3xl w-full p-4 rounded-3xl relative z-10 overflow-hidden flex flex-col gap-4 max-h-[90vh]"
+            {/* Prev */}
+            <button
+              onClick={handlePrev}
+              aria-label="Previous photo"
+              className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-pink-200 border border-white/15 cursor-pointer focus:outline-none transition z-20"
             >
-              {/* Close Button */}
-              <button
-                onClick={() => setSelectedPhoto(null)}
-                aria-label="Close Lightbox"
-                className="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white border border-white/20 cursor-pointer focus:outline-none transition"
-              >
-                <X className="w-5 h-5" />
-              </button>
+              <ChevronLeft className="w-5 h-5" />
+            </button>
 
-              {/* High-res Image */}
-              <div className="w-full flex-1 overflow-hidden rounded-2xl bg-black/20 flex items-center justify-center">
+            {/* Next */}
+            <button
+              onClick={handleNext}
+              aria-label="Next photo"
+              className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-pink-200 border border-white/15 cursor-pointer focus:outline-none transition z-20"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+
+            {/* Close */}
+            <button
+              onClick={() => setSelectedIndex(null)}
+              aria-label="Close"
+              className="absolute top-4 right-4 sm:top-5 sm:right-5 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-pink-200 border border-white/15 cursor-pointer focus:outline-none transition z-20"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            {/* Lightbox content */}
+            <motion.div
+              key={selectedIndex}
+              initial={{ scale: 0.94, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.94, opacity: 0 }}
+              className="relative z-10 flex flex-col items-center gap-3 max-w-3xl w-full max-h-[90vh]"
+            >
+              {/* Image — object-contain so the FULL photo is always shown */}
+              <div className="w-full flex items-center justify-center overflow-hidden rounded-2xl bg-black/30 p-2">
                 <img
                   src={selectedPhoto.url}
                   alt={selectedPhoto.caption}
-                  className="max-h-[60vh] w-auto object-contain rounded-xl"
+                  className="max-w-full max-h-[70vh] w-auto h-auto object-contain rounded-xl shadow-2xl"
                 />
               </div>
 
-              {/* Footer caption */}
-              <div className="px-2 py-1 text-white flex flex-col md:flex-row md:justify-between md:items-center gap-2">
-                <div>
-                  <p className="font-playfair text-lg md:text-xl font-bold text-rose-200">
+              {/* Caption */}
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-2 w-full px-1">
+                <div className="text-center sm:text-left">
+                  <p className="font-serif text-sm sm:text-base md:text-lg font-bold text-pink-100">
                     {selectedPhoto.caption}
                   </p>
-                  <p className="font-inter text-xs text-white/60 mt-1">
+                  <p className="font-mono text-xs text-pink-300/70 mt-0.5">
                     Captured on {selectedPhoto.date}
                   </p>
                 </div>
-                <div className="flex items-center gap-1.5 text-amber-200 text-sm font-poppins">
-                  <Sparkles className="w-4 h-4 text-amber-300" />
-                  A Moment to Cherish
+                <div className="flex items-center gap-1.5 text-yellow-300 text-xs font-mono bg-yellow-500/10 border border-yellow-500/20 px-3 py-1 rounded-full shrink-0">
+                  <Sparkles className="w-3.5 h-3.5 text-yellow-400" />
+                  <span>{selectedIndex + 1} / {photos.length}</span>
                 </div>
               </div>
             </motion.div>

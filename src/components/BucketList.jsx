@@ -19,8 +19,8 @@ export default function BucketList() {
     // If checked, spawn cute heart particles at click position
     if (becameChecked && event) {
       const rect = event.currentTarget.getBoundingClientRect();
-      const clickX = event.clientX - rect.left;
-      const clickY = event.clientY - rect.top;
+      const clickX = (event.clientX || (event.touches && event.touches[0].clientX)) - rect.left;
+      const clickY = (event.clientY || (event.touches && event.touches[0].clientY)) - rect.top;
 
       const newParticles = [...Array(6)].map((_, i) => ({
         id: Date.now() + i,
@@ -43,20 +43,20 @@ export default function BucketList() {
   return (
     <section 
       id="bucket-list" 
-      className="py-24 bg-gradient-to-b from-[#fff5f5] to-cream relative overflow-hidden select-none px-6"
+      className="py-16 sm:py-24 bg-gradient-to-b from-[#fff5f5] to-cream relative overflow-hidden select-none px-4 sm:px-6"
     >
       {/* Decorative stars */}
-      <div className="absolute top-10 left-10 text-rose-300 text-3xl animate-bounce">✨</div>
-      <div className="absolute bottom-20 right-10 text-rose-300 text-xl animate-ping">✨</div>
+      <div className="absolute top-10 left-6 text-rose-300 text-2xl sm:text-3xl animate-bounce">✨</div>
+      <div className="absolute bottom-20 right-6 text-rose-300 text-lg sm:text-xl animate-ping">✨</div>
 
       <div className="max-w-3xl mx-auto relative z-10">
         {/* Header */}
-        <div className="text-center mb-14">
+        <div className="text-center mb-10 sm:mb-14">
           <motion.div 
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 text-rose-800 font-poppins text-xs font-semibold uppercase tracking-widest bg-rose-100 px-4 py-1.5 rounded-full mb-3"
+            className="inline-flex items-center gap-2 text-rose-800 font-poppins text-[11px] sm:text-xs font-semibold uppercase tracking-widest bg-rose-100 px-3.5 py-1.5 rounded-full mb-3"
           >
             Our Future
           </motion.div>
@@ -64,26 +64,26 @@ export default function BucketList() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="font-playfair text-3xl md:text-5xl font-bold text-rose-900"
+            className="font-playfair text-2xl sm:text-4xl md:text-5xl font-bold text-rose-900"
           >
             Things I Want To Do With You 🗒️❤️
           </motion.h2>
-          <p className="font-cormorant italic text-lg md:text-xl text-rose-800/80 mt-2">
+          <p className="font-cormorant italic text-base sm:text-lg md:text-xl text-rose-800/80 mt-2 px-2">
             A small bucket list of dreams waiting for us. Check them off as we make them happen!
           </p>
         </div>
 
         {/* Bucket List Grid */}
-        <div className="glass p-6 md:p-10 rounded-3xl border border-rose-200/50 shadow-inner flex flex-col gap-4 relative overflow-hidden">
+        <div className="glass p-4 sm:p-8 md:p-10 rounded-3xl border border-rose-200/50 shadow-inner flex flex-col gap-3.5 relative overflow-hidden">
           {list.map((item) => (
             <button
               key={item.id}
               onClick={(e) => handleToggle(item.id, e)}
-              className="flex items-center text-left gap-4 p-4 rounded-2xl hover:bg-white/60 focus:bg-white/80 transition-all duration-300 w-full group relative focus:outline-none focus:ring-2 focus:ring-rose-200 cursor-pointer"
+              className="flex items-center text-left gap-3.5 p-3.5 sm:p-4 rounded-2xl hover:bg-white/60 focus:bg-white/80 transition-all duration-300 w-full group relative focus:outline-none focus:ring-2 focus:ring-rose-200 cursor-pointer touch-target"
             >
               {/* Checkbox (Heart circle) */}
               <div 
-                className={`w-9 h-9 rounded-full flex items-center justify-center border-2 transition-all duration-300 ${
+                className={`w-8 sm:w-9 h-8 sm:h-9 rounded-full flex items-center justify-center border-2 transition-all duration-300 flex-shrink-0 ${
                   item.checked 
                     ? "bg-rose-500 border-rose-500 text-white shadow-md shadow-rose-200 scale-105" 
                     : "border-rose-300 bg-white/50 text-transparent group-hover:border-rose-400 group-hover:scale-102"
@@ -98,7 +98,7 @@ export default function BucketList() {
 
               {/* Text */}
               <span 
-                className={`font-poppins text-sm md:text-base font-medium tracking-wide transition-all duration-300 ${
+                className={`font-poppins text-xs sm:text-sm md:text-base font-medium tracking-wide transition-all duration-300 flex-1 ${
                   item.checked 
                     ? "text-rose-900/40 line-through" 
                     : "text-rose-950 group-hover:text-rose-700"
@@ -107,14 +107,9 @@ export default function BucketList() {
                 {item.text}
               </span>
 
-              {/* Sparkle icon on hover (if unchecked) */}
-              {!item.checked && (
-                <Sparkles className="absolute right-4 w-4 h-4 text-amber-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              )}
-
               {/* Sparkle icon when checked */}
               {item.checked && (
-                <Heart className="absolute right-4 w-4 h-4 text-rose-300 fill-rose-300 animate-pulse" />
+                <Heart className="w-4 h-4 text-rose-300 fill-rose-300 animate-pulse flex-shrink-0" />
               )}
             </button>
           ))}
@@ -124,7 +119,7 @@ export default function BucketList() {
             {particles.map((p) => {
               const rad = (p.angle * Math.PI) / 180;
               const moveX = Math.cos(rad) * p.distance;
-              const moveY = Math.sin(rad) * p.distance - 40; // Float upwards slightly
+              const moveY = Math.sin(rad) * p.distance - 40;
 
               return (
                 <motion.div
@@ -138,7 +133,7 @@ export default function BucketList() {
                   }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 1, ease: "easeOut" }}
-                  className="absolute pointer-events-none text-rose-500 text-lg z-20"
+                  className="absolute pointer-events-none text-rose-500 text-base sm:text-lg z-20"
                 >
                   ❤️
                 </motion.div>

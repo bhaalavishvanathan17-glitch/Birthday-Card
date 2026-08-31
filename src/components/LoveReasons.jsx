@@ -1,101 +1,71 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Heart, Sparkles, RefreshCw } from "lucide-react";
+import { Heart } from "lucide-react";
 import { birthdayConfig } from "../config/birthdayConfig";
 
 export default function LoveReasons() {
   const [index, setIndex] = useState(0);
-  const reasons = birthdayConfig.reasons;
+  const reasons = birthdayConfig.reasons || [];
 
   const handleNextReason = () => {
-    setIndex((prevIndex) => (prevIndex + 1) % reasons.length);
+    setIndex((prev) => (prev + 1) % reasons.length);
   };
 
   return (
-    <section 
-      id="reasons" 
-      className="py-24 bg-gradient-to-b from-[#fff5f5] to-cream relative overflow-hidden select-none px-6"
-    >
-      {/* Decorative vector background */}
-      <div className="absolute top-1/2 left-10 w-64 h-64 bg-pink-100/30 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute top-20 right-10 text-rose-300 text-3xl animate-pulse">✨</div>
-
-      <div className="max-w-2xl mx-auto flex flex-col items-center relative z-10">
-        {/* Title */}
+    <section id="reasons" className="py-24 bg-burgundy-dark text-cream relative overflow-hidden select-none px-6">
+      <div className="max-w-3xl mx-auto relative z-10 flex flex-col items-center text-center">
         <div className="text-center mb-12">
           <motion.div 
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 text-rose-800 font-poppins text-xs font-semibold uppercase tracking-widest bg-rose-100 px-4 py-1.5 rounded-full mb-3"
+            className="inline-flex items-center space-x-2 text-rose-300 font-mono text-xs uppercase tracking-widest bg-rose-500/20 border border-rose-400/30 px-4 py-1.5 rounded-full mb-3 shadow-md"
           >
-            My Reasons
+            <span>Reasons I Love You</span>
           </motion.div>
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="font-playfair text-3xl md:text-5xl font-bold text-rose-900"
+            className="font-serif text-3xl md:text-5xl font-bold text-pink-100"
           >
-            A Few Reasons Why I Love You ❤️
+            Why You Mean The World To Me ❤️
           </motion.h2>
         </div>
 
-        {/* Reason Card Container */}
-        <div className="w-full min-h-[250px] flex items-center justify-center relative mb-8">
+        <div className="w-full min-h-[220px] flex items-center justify-center">
           <AnimatePresence mode="wait">
             <motion.div
               key={index}
-              initial={{ opacity: 0, x: 50, rotate: -2 }}
-              animate={{ opacity: 1, x: 0, rotate: 0 }}
-              exit={{ opacity: 0, x: -50, rotate: 2 }}
-              transition={{ type: "spring", stiffness: 100, damping: 15 }}
-              className="glass p-8 md:p-10 rounded-3xl border border-rose-200 shadow-md w-full max-w-lg text-center flex flex-col justify-center items-center gap-6 relative"
+              initial={{ opacity: 0, scale: 0.95, y: 10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: -10 }}
+              transition={{ duration: 0.4 }}
+              className="bg-white/10 backdrop-blur-xl border border-white/20 p-8 rounded-3xl shadow-2xl w-full max-w-xl flex flex-col items-center justify-center gap-4 relative"
             >
-              {/* Card Heart Badge */}
-              <div className="w-12 h-12 bg-rose-100 rounded-full flex items-center justify-center text-rose-500 shadow-inner">
-                <Heart className="w-5 h-5 fill-rose-500" />
-              </div>
-
-              {/* Number indicator */}
-              <span className="font-poppins text-xs font-bold uppercase tracking-widest text-rose-700">
-                Reason #{String(index + 1).padStart(2, "0")}
+              <span className="font-mono text-xs font-bold text-rose-300 uppercase tracking-widest bg-rose-500/20 px-3 py-1 rounded-full border border-rose-400/30">
+                Reason #{index + 1}
               </span>
 
-              {/* Reason Content */}
-              <p className="font-cormorant italic text-2xl md:text-3xl text-rose-950 font-medium leading-relaxed px-4">
+              <p className="font-serif italic text-xl md:text-2xl text-pink-100 leading-relaxed max-w-lg">
                 "{reasons[index]}"
               </p>
 
-              {/* Floating Sparkles decoration */}
-              <div className="absolute -top-3 -right-3 text-amber-400">✨</div>
+              <div className="flex gap-1 text-rose-400">
+                <Heart className="w-4 h-4 fill-rose-500 text-rose-500" />
+              </div>
             </motion.div>
           </AnimatePresence>
         </div>
 
-        {/* Action Button */}
-        <div className="flex flex-col items-center gap-4">
-          <button
-            onClick={handleNextReason}
-            className="px-8 py-3.5 bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white font-poppins font-semibold rounded-full shadow-lg flex items-center gap-2 cursor-pointer transition-all hover:scale-105 active:scale-95 focus:outline-none focus:ring-4 focus:ring-rose-300"
-          >
-            Give me another reason ❤️
-          </button>
-
-          {/* Dots Indicator */}
-          <div className="flex justify-center gap-1.5 mt-2">
-            {reasons.map((_, i) => (
-              <button
-                key={i}
-                aria-label={`Show reason ${i + 1}`}
-                onClick={() => setIndex(i)}
-                className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
-                  i === index ? "w-6 bg-rose-500" : "w-2 bg-rose-200 hover:bg-rose-300"
-                }`}
-              />
-            ))}
-          </div>
-        </div>
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={handleNextReason}
+          className="mt-8 px-8 py-3.5 bg-gradient-to-r from-rose-500 to-pink-500 text-white font-serif font-bold text-base rounded-full shadow-xl flex items-center gap-2 cursor-pointer border border-pink-300/30"
+        >
+          <span>Give me another reason ❤️</span>
+        </motion.button>
       </div>
     </section>
   );
