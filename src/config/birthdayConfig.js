@@ -1,6 +1,6 @@
 export const birthdayConfig = {
   // 1. Personalization Info
-  birthdayPerson: "Nivitha",
+  birthdayPerson: "",
   senderName: "Sk.Gopi",
   birthdayDate: "2026-09-05",
   birthTime: "23:00:00",
@@ -180,7 +180,7 @@ export const birthdayConfig = {
   placesVisited: [
     { id: 1, name: "Grandin Cafe", coords: { x: 30, y: 40 }, memory: "Where we had our first 3-hour long conversation over coffee and Biryani.", date: "Mar 15 2026", image: "/Assetes/15 Mar 2026.jpg" },
     { id: 2, name: "The Seaside", coords: { x: 60, y: 25 }, memory: "Watching reflections in the water and holding hands for the first time.", date: "Apr 29 2026", image: "/Assetes/29 apr 2026.jpg" },
-    { id: 3, name: "RG Cinemas", coords: { x: 75, y: 65 }, memory: "Our first movie together, Movie - Sachin", date: "Apr 19 2026", image: "/Assetes/8 Feb 2025.jpeg" },
+    { id: 3, name: "RG Cinemas", coords: { x: 75, y: 65 }, memory: "Our first movie together, Movie - Sachin", date: "Apr 19 2026", image: "/Assetes/IMG_5508.jpg" },
     { id: 4, name: "Our Restaurant Meet", coords: { x: 40, y: 75 }, memory: "That rainy evening we ate dessert for dinner.", date: "May 3 2026", image: "/Assetes/3 may 2026.jpeg" }
   ],
 
