@@ -135,7 +135,7 @@ export const birthdayConfig = {
   constellation: [
     { id: 1, name: "First Meeting", x: 22, y: 20, date: "July 17 2024", text: "The moment our eyes met and my world shifted.", image: "/Assetes/17 july 2024.jpeg" },
     { id: 2, name: "First Night Ride", x: 45, y: 60, date: "April 3 2026", text: "The first night ride.", image: "/Assetes/3 April 2026.jpeg" },
-    { id: 3, name: "Favorite Trip", x: 75, y: 35, date: "August 3 2025", text: "Summer memory under a beautiful sky.", image: "/Assetes/3 Augest 2025.jpeg" },
+    { id: 3, name: "Favorite Trip", x: 75, y: 35, date: "August 3 2025", text: "Summer memory under a beautiful sky.", image: "/Assetes/29 April 2026.jpeg" },
     { id: 4, name: "Temple", x: 35, y: 80, date: "February 8 2025", text: "First photo together as a couple at the temple.", image: "/Assetes/8 Feb 2025.jpeg" },
     { id: 5, name: "Today", x: 80, y: 75, date: "Today", text: "Celebrating the most wonderful person in the universe.", image: "/Assetes/27 Augest 2026.jpg" }
   ],
