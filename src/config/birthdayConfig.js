@@ -1,13 +1,13 @@
 export const birthdayConfig = {
   // 1. Personalization Info
-  birthdayPerson: "Nifi",
+  birthdayPerson: "Nifi Farvein",
   senderName: "Sk.Gopi",
   birthdayDate: "2026-09-05",
   birthTime: "23:00:00",
   profileName: "SK.Gopi",
   profileImage: "/Assetes/profile.jpeg",
   specialNickname: "Zoya",
-  heroTitle: "Happy Birthday, Nifi ❤️",
+  heroTitle: "Happy Birthday, Nifi Farvein ❤️",
   heroSubtitle: "To the person who makes my world a little brighter every single day.",
 
   // 2. Chat Opening Messages (Chapter 1 - Feature 2)
