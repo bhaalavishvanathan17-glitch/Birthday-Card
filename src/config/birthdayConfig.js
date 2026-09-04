@@ -392,9 +392,9 @@ Happy Birthday, my love. ❤️`
   },
 
   guessMemory: {
-    clues: ["Our frequent visiting place", "Matching Dress", ""],
+    clues: ["Our frequent visiting place", "Matching Dress",],
     image: "/Assetes/15 Mar 2026.jpg",
-    title: "Our Rainy Coffee Date"
+    title: "Our Coffee Date"
   },
 
 
