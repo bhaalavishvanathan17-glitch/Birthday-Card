@@ -24,7 +24,6 @@ import BirthdayCake from "./components/BirthdayCake";
 // Chapter 1 Features
 import LoveMeter from "./components/LoveMeter";
 import VirtualHug from "./components/VirtualHug";
-import FakePhoneCall from "./components/FakePhoneCall";
 
 // Chapter 2 Components & Memory Features
 import OurStory from "./components/OurStory";
@@ -51,10 +50,7 @@ import DontBreakMyHeart from "./components/DontBreakMyHeart";
 
 // Chapter 5 Components & Secret Features
 import OurSong from "./components/OurSong";
-import VoiceMessage from "./components/VoiceMessage";
-import VideoMessage from "./components/VideoMessage";
 import LoveLetter from "./components/LoveLetter";
-import SecretPassword from "./components/SecretPassword";
 import EasterEggs from "./components/EasterEggs";
 import SecretNumber from "./components/SecretNumber";
 import FewSecondsWithYou from "./components/FewSecondsWithYou";
@@ -156,7 +152,6 @@ export default function App() {
           <BirthdayCake />
           <LoveMeter />
           <VirtualHug />
-          <FakePhoneCall />
 
           {/* CHAPTER 2 */}
           <OurStory />
@@ -188,10 +183,7 @@ export default function App() {
             hasMusic={hasMusic}
             audioRef={audioRef}
           />
-          <VoiceMessage />
-          <VideoMessage />
           <LoveLetter />
-          <SecretPassword />
           <SecretNumber />
           <FewSecondsWithYou />
           <OurMovie />
